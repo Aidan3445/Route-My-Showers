@@ -31,6 +31,7 @@
 		DD6723C7309E45610008B03C /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD672387309E45600008B03C /* SafariWebExtensionHandler.swift */; };
 		DD6723E3309E45610008B03C /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723D9309E45610008B03C /* popup.js */; };
 		DD6723E4309E45610008B03C /* gpx.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723DA309E45610008B03C /* gpx.js */; };
+		AA0000000000000000000F02 /* haversine.js in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000F01 /* haversine.js */; };
 		DD6723E5309E45610008B03C /* page.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723DB309E45610008B03C /* page.js */; };
 		DD6723E6309E45610008B03C /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723DC309E45610008B03C /* background.js */; };
 		DD6723E7309E45610008B03C /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = DD6723DD309E45610008B03C /* popup.html */; };
@@ -41,6 +42,7 @@
 		DD6723EC309E45610008B03C /* loader.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723E2309E45610008B03C /* loader.js */; };
 		DD6723ED309E45610008B03C /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723D9309E45610008B03C /* popup.js */; };
 		DD6723EE309E45610008B03C /* gpx.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723DA309E45610008B03C /* gpx.js */; };
+		AA0000000000000000000F03 /* haversine.js in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000F01 /* haversine.js */; };
 		DD6723EF309E45610008B03C /* page.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723DB309E45610008B03C /* page.js */; };
 		DD6723F0309E45610008B03C /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = DD6723DC309E45610008B03C /* background.js */; };
 		DD6723F1309E45610008B03C /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = DD6723DD309E45610008B03C /* popup.html */; };
@@ -113,6 +115,7 @@
 		DD6723B9309E45610008B03C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD6723D9309E45610008B03C /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.js; path = ../../../extension/popup.js; sourceTree = "<group>"; };
 		DD6723DA309E45610008B03C /* gpx.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = gpx.js; path = ../../../extension/gpx.js; sourceTree = "<group>"; };
+		AA0000000000000000000F01 /* haversine.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = haversine.js; path = ../../../extension/haversine.js; sourceTree = "<group>"; };
 		DD6723DB309E45610008B03C /* page.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = page.js; path = ../../../extension/page.js; sourceTree = "<group>"; };
 		DD6723DC309E45610008B03C /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../extension/background.js; sourceTree = "<group>"; };
 		DD6723DD309E45610008B03C /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = popup.html; path = ../../../extension/popup.html; sourceTree = "<group>"; };
@@ -244,6 +247,7 @@
 			children = (
 				DD6723D9309E45610008B03C /* popup.js */,
 				DD6723DA309E45610008B03C /* gpx.js */,
+				AA0000000000000000000F01 /* haversine.js */,
 				DD6723DB309E45610008B03C /* page.js */,
 				DD6723DC309E45610008B03C /* background.js */,
 				DD6723DD309E45610008B03C /* popup.html */,
@@ -406,6 +410,7 @@
 				DD6723F1309E45610008B03C /* popup.html in Resources */,
 				DD6723EF309E45610008B03C /* page.js in Resources */,
 				DD6723EE309E45610008B03C /* gpx.js in Resources */,
+				AA0000000000000000000F03 /* haversine.js in Resources */,
 				DD6723F4309E45610008B03C /* manifest.json in Resources */,
 				DD6723F2309E45610008B03C /* source.js in Resources */,
 				DD6723F5309E45610008B03C /* content.js in Resources */,
@@ -421,6 +426,7 @@
 				DD6723E7309E45610008B03C /* popup.html in Resources */,
 				DD6723E5309E45610008B03C /* page.js in Resources */,
 				DD6723E4309E45610008B03C /* gpx.js in Resources */,
+				AA0000000000000000000F02 /* haversine.js in Resources */,
 				DD6723EA309E45610008B03C /* manifest.json in Resources */,
 				DD6723E8309E45610008B03C /* source.js in Resources */,
 				DD6723EB309E45610008B03C /* content.js in Resources */,

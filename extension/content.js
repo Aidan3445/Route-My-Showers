@@ -255,8 +255,9 @@
       setManual(false);
       toast("Added to your map");
     } catch (err) {
-      if (err.info && err.info.provider === "strava") viaPage(err.info);
-      else if (err.info) offerOpen(err.info, err.message);
+      // A recognised link the extension couldn't download itself (on iOS its background has
+      // none of Safari's logins): import it from the route's own page instead, then come back.
+      if (err.info) viaPage(err.info);
       else { setManual(true, raw); showMsg(err.message); }
     } finally {
       b.disabled = false;
@@ -303,23 +304,6 @@
     showMsg(`Grabbing it from ${RMS.PROVIDERS[info.provider]}…`, true);
     await chrome.storage.local.set(pending);
     setTimeout(() => location.assign(href), 400);
-  }
-
-  function offerOpen(info, reason) {
-    showMsg("");
-    const p = document.createElement("div");
-    p.textContent = reason;
-    const { href, pending } = importPageUrl(info);
-    const a = document.createElement("a");
-    a.className = "btn primary";
-    a.href = href;
-    a.textContent = `Add it from ${RMS.PROVIDERS[info.provider]} →`;
-    a.onclick = (e) => {
-      e.preventDefault();
-      chrome.storage.local.set(pending);
-      setTimeout(() => location.assign(href), 50);
-    };
-    msgEl.append(p, a);
   }
 
   const PROVIDER_OF = (r) => (r.source ? RMS.PROVIDERS[r.source.split(":")[0]] : "GPX file") || "Route";

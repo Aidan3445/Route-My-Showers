@@ -57,11 +57,10 @@ async function attempt(provider, url, credentials) {
 
 function explain(provider, log) {
   const name = { rwgps: "RideWithGPS", komoot: "Komoot", strava: "Strava" }[provider] || provider;
-  const all = log.join(", ");
-  if (log.every((l) => l.endsWith("network error"))) return `Couldn't reach ${name}. Is the extension allowed on that site? (${all})`;
-  if (log.some((l) => l.endsWith("needs sign-in"))) return `Sign in to ${name} first (${all})`;
-  if (log.every((l) => /40[13]$/.test(l))) return `${name} says this route is private (${all})`;
-  return `${name} refused the download (${all})`;
+  if (log.every((l) => l.endsWith("network error"))) return `Couldn't reach ${name}. Is the extension allowed on that site?`;
+  if (log.some((l) => l.endsWith("needs sign-in"))) return `Sign in to ${name} first.`;
+  if (log.every((l) => /40[13]$/.test(l))) return `${name} says this route is private.`;
+  return `${name} wouldn't hand over that route.`;
 }
 
 async function download(info) {
@@ -71,7 +70,7 @@ async function download(info) {
     if (res.payload) return { ok: true, payload: res.payload, via: label };
     log.push(`${label}: ${res.status}`);
   }
-  return { ok: false, error: explain(info.provider, log) };
+  return { ok: false, error: explain(info.provider, log), detail: log.join(", ") };
 }
 
 // Strava short links break, wait for redirect

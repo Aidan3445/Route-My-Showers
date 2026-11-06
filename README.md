@@ -32,9 +32,9 @@ If you add a file to `extension/`, add it to the Safari extension targets in Xco
 - Copy a route link, then tap **Paste & add**. It reads the clipboard and adds the route in one go (on iPhone, Safari asks you to confirm with its own "Paste" bubble). If the clipboard isn't a usable link, a text box appears with what was pasted so you can fix it, and the button becomes **Add**. It goes back to the single button after a route is added or when you close the panel. Supported links:
   - RideWithGPS: `ridewithgps.com/routes/…` and `/trips/…` (private ones with `privacy_code` work)
   - Komoot: `komoot.com/tour/…` and curated `komoot.com/smarttour/…` links (private tours work with their `share_token` link)
-  - Strava: `strava.com/routes/…`, `/activities/…`, and `strava.app.link/…` short links. Strava only lets signed-in users download, so sign in to strava.com in Safari/Chrome once. On iPhone, Strava links automatically go through the Strava page (in Safari, not the app) and come back.
+  - Strava: `strava.com/routes/…`, `/activities/…`, and `strava.app.link/…` short links. Strava only lets signed-in users download, so sign in to strava.com in Safari/Chrome once.
 - **Load a GPX file** for anything else (on iPhone this opens the Files app).
-- If a direct download is refused, the panel offers **Add it from RideWithGPS / Komoot / Strava →**. That opens the route page, where you're signed in, imports it from there, and brings you straight back.
+- If the extension can't download a route directly (on iPhone it never has Safari's logins), the panel goes to the route's page, where you're signed in, imports it from there, and brings you straight back. This happens automatically.
   Every route page on those sites also gets an **Add to Warmshowers map** button.
 - **Show on map** switch and **Fit** live in the panel.
 - **Distance to host:** tap a host on the map and its card shows a badge, e.g. "1.6 mi from route · at mile 49".
@@ -49,7 +49,7 @@ If you add a file to `extension/`, add it to the Safari extension targets in Xco
   `google.maps` methods (`Map.prototype.getBounds/getZoom/...`, `MVCObject.get/set`, `event.addListener`).
   The first time the site touches its map, `page.js` captures it and draws `Polyline`s and `Marker`s on it.
 - `content.js` is the Warmshowers panel. `gpx.js` has shared parsing (GPX, link recognition, provider JSON).
-- `background.js` downloads routes, because content scripts can't make cross-site requests (CORS). It tries several URL/cookie variants per site, and the error message lists each attempt.
+- `background.js` downloads routes, because content scripts can't make cross-site requests (CORS). It tries several URL/cookie variants per site. If they all fail, the panel shows a plain reason and the browser console logs each attempt.
 - `source.js` runs on RideWithGPS, Komoot and Strava pages for the on-page import.
 - `popup.html`/`popup.js` is the toolbar popup.
 
