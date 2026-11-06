@@ -644,7 +644,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShower.Extension;
 				PRODUCT_NAME = "Route My Showers Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -678,7 +678,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShower.Extension;
 				PRODUCT_NAME = "Route My Showers Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -722,7 +722,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShower;
 				PRODUCT_NAME = "Route My Showers";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -765,7 +765,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShower;
 				PRODUCT_NAME = "Route My Showers";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -803,7 +803,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShower.Extension;
 				PRODUCT_NAME = "Route My Showers Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -839,7 +839,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShower.Extension;
 				PRODUCT_NAME = "Route My Showers Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -882,7 +882,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShower;
 				PRODUCT_NAME = "Route My Showers";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -926,7 +926,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShower;
 				PRODUCT_NAME = "Route My Showers";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
