@@ -628,6 +628,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AXZR9KKTUD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Route My Showers Extension";
@@ -643,8 +644,7 @@
 					"-framework",
 					SafariServices,
 				);
-				DEVELOPMENT_TEAM = AXZR9KKTUD;
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidanweinberg.RouteMyShowers.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers.Extension;
 				PRODUCT_NAME = "Route My Showers Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -662,6 +662,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AXZR9KKTUD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Route My Showers Extension";
@@ -677,8 +678,7 @@
 					"-framework",
 					SafariServices,
 				);
-				DEVELOPMENT_TEAM = AXZR9KKTUD;
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidanweinberg.RouteMyShowers.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers.Extension;
 				PRODUCT_NAME = "Route My Showers Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -699,9 +699,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AXZR9KKTUD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Route My Showers";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -719,8 +721,7 @@
 					"-framework",
 					WebKit,
 				);
-				DEVELOPMENT_TEAM = AXZR9KKTUD;
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidanweinberg.RouteMyShowers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers;
 				PRODUCT_NAME = "Route My Showers";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -740,9 +741,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AXZR9KKTUD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Route My Showers";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -760,8 +763,7 @@
 					"-framework",
 					WebKit,
 				);
-				DEVELOPMENT_TEAM = AXZR9KKTUD;
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidanweinberg.RouteMyShowers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers;
 				PRODUCT_NAME = "Route My Showers";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -780,6 +782,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AXZR9KKTUD;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -798,8 +801,7 @@
 					"-framework",
 					SafariServices,
 				);
-				DEVELOPMENT_TEAM = AXZR9KKTUD;
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidanweinberg.RouteMyShowers.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers.Extension;
 				PRODUCT_NAME = "Route My Showers Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -816,6 +818,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AXZR9KKTUD;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -834,8 +837,7 @@
 					"-framework",
 					SafariServices,
 				);
-				DEVELOPMENT_TEAM = AXZR9KKTUD;
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidanweinberg.RouteMyShowers.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers.Extension;
 				PRODUCT_NAME = "Route My Showers Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -854,6 +856,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AXZR9KKTUD;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -861,6 +864,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Route My Showers";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -875,8 +879,7 @@
 					"-framework",
 					WebKit,
 				);
-				DEVELOPMENT_TEAM = AXZR9KKTUD;
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidanweinberg.RouteMyShowers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers;
 				PRODUCT_NAME = "Route My Showers";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -896,6 +899,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AXZR9KKTUD;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -903,6 +907,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Route My Showers";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -917,8 +922,7 @@
 					"-framework",
 					WebKit,
 				);
-				DEVELOPMENT_TEAM = AXZR9KKTUD;
-				PRODUCT_BUNDLE_IDENTIFIER = com.aidanweinberg.RouteMyShowers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aidan3445.RouteMyShowers;
 				PRODUCT_NAME = "Route My Showers";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
