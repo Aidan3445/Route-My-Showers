@@ -56,6 +56,7 @@
         "https://*.warmshowers.com/*"
       ],
       "js": [
+        "haversine.js",
         "gpx.js",
         "content.js"
       ],
@@ -69,6 +70,7 @@
         "https://www.strava.com/*"
       ],
       "js": [
+        "haversine.js",
         "gpx.js",
         "source.js"
       ],
@@ -78,6 +80,7 @@
   "web_accessible_resources": [
     {
       "resources": [
+        "haversine.js",
         "page.js"
       ],
       "matches": [
