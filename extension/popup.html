@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --teal: #0e6b6b; --bg: #ffffff; --card: #f1f7f6; --text: #1f2937; --muted: #64748b;
+    --track: #d1d5db; --seg: #e2ecea; --seg-on: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --teal: #2bb5a8; --bg: #1c1c1e; --card: #2c2c2e; --text: #f2f2f7; --muted: #a1a1aa;
+            --track: #48484a; --seg: #3a3a3c; --seg-on: #636366; }
+  }
+  * { box-sizing: border-box; margin: 0; font: 15px/1.35 -apple-system, system-ui, "Segoe UI", sans-serif; }
+  body { padding: 16px; min-width: 270px; background: var(--bg); color: var(--text); }
+  header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  header img { width: 34px; height: 34px; border-radius: 9px; }
+  header b { display: block; font-size: 16px; font-weight: 700; }
+  header small { color: var(--muted); font-size: 12px; }
+  .card { background: var(--card); border-radius: 14px; padding: 4px 14px; margin-bottom: 12px; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; }
+  .row + .row { border-top: 1px solid rgba(127,127,127,.15); }
+
+  /* iOS-style switch */
+  .switch { position: relative; flex: none; }
+  .switch input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .track { display: block; width: 50px; height: 30px; border-radius: 15px; background: var(--track);
+           position: relative; transition: background .2s; pointer-events: none; }
+  .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; border-radius: 50%;
+                  background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,.25); transition: transform .2s; }
+  .switch input:checked + .track { background: var(--teal); }
+  .switch input:checked + .track::after { transform: translateX(20px); }
+
+  /* segmented control */
+  .seg { display: inline-flex; background: var(--seg); border-radius: 9px; padding: 2px; }
+  .seg button { border: none; background: none; color: var(--text); padding: 6px 14px; border-radius: 7px;
+                font-weight: 600; font-size: 14px; cursor: pointer; }
+  .seg button.on { background: var(--seg-on); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+
+  select { appearance: none; -webkit-appearance: none; border: none; background: var(--seg); color: var(--text);
+           border-radius: 9px; padding: 7px 28px 7px 12px; font-weight: 600; font-size: 14px; cursor: pointer;
+           background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+           background-position: right 13px center, right 8px center; background-size: 5px 5px; background-repeat: no-repeat; }
+  p { color: var(--muted); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+  <header>
+    <img src="icons/icon128.png" alt="">
+    <div><b>Route My Showers</b><small id="count"></small></div>
+  </header>
+
+  <div class="card">
+    <div class="row">Route button on map
+      <label class="switch"><input type="checkbox" id="panel"><span class="track"></span></label></div>
+    <div class="row">Show routes
+      <label class="switch"><input type="checkbox" id="routes"><span class="track"></span></label></div>
+  </div>
+
+  <div class="card">
+    <div class="row">Units
+      <div class="seg" id="units"><button data-v="mi">mi</button><button data-v="km">km</button></div></div>
+    <div class="row">Distance markers
+      <select id="interval">
+        <option value="auto">Auto</option>
+        <option value="off">Off</option>
+        <option value="1">Every 1</option>
+        <option value="5">Every 5</option>
+        <option value="10">Every 10</option>
+        <option value="25">Every 25</option>
+        <option value="50">Every 50</option>
+        <option value="100">Every 100</option>
+      </select></div>
+  </div>
+
+  <p>Add routes from the button on the Warmshowers map.</p>
+  <script src="popup.js"></script>
+</body>
+</html>
