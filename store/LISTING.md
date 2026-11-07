@@ -61,6 +61,9 @@ Then tick all three certifications (not sold, not used for unrelated purposes, n
 **Privacy policy URL:**
 https://aidan3445.github.io/Route-My-Showers/privacy.html
 
+**Support URL** (App Store Connect; also usable as Chrome's support site):
+https://aidan3445.github.io/Route-My-Showers/support.html
+
 ## Reviewer test instructions
 Chrome: Developer Dashboard > item > **Test instructions** tab. Apple: App Store Connect > version > **App Review Information > Notes** (tick "Sign-in required" off).
 

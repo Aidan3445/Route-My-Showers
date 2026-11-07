@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Route My Showers Support</title>
+<style>
+  :root { color-scheme: light dark; --bg: #ffffff; --fg: #1f2937; --muted: #6b7280; --link: #0e6b6b; --rule: #e5e7eb; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #111827; --fg: #e5e7eb; --muted: #9ca3af; --link: #5eead4; --rule: #374151; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 32px 16px 48px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 32px 0 8px; padding-top: 16px; border-top: 1px solid var(--rule); }
+  h3 { font-size: 16px; margin: 20px 0 4px; }
+  p { margin: 8px 0; }
+  .muted { color: var(--muted); }
+  a { color: var(--link); }
+  ol, ul { padding-left: 22px; }
+  li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Route My Showers Support</h1>
+  <p class="muted">Draw your bike routes, with distance markers, on the Warmshowers host map.</p>
+
+  <h2>Contact</h2>
+  <p>Questions, bugs or ideas: <a href="https://github.com/Aidan3445/Route-My-Showers/issues/new">open an issue on GitHub</a>.
+    Include your device, browser, and the route link if a route won't load.</p>
+
+  <h2>Getting started</h2>
+  <h3>Safari on iPhone and iPad</h3>
+  <ol>
+    <li>Open the Route My Showers app once after installing it.</li>
+    <li>Go to <strong>Settings &gt; Apps &gt; Safari &gt; Extensions &gt; Route My Showers</strong> and turn it on.</li>
+    <li>In the same screen, set these websites to <strong>Allow</strong>: warmshowers.org, ridewithgps.com, komoot.com and strava.com.</li>
+  </ol>
+  <h3>Safari on Mac</h3>
+  <ol>
+    <li>Open the Route My Showers app once after installing it.</li>
+    <li>In Safari, go to <strong>Settings &gt; Extensions</strong> and tick <strong>Route My Showers</strong>.</li>
+    <li>Allow it on warmshowers.org, ridewithgps.com, komoot.com and strava.com when Safari asks.</li>
+  </ol>
+  <h3>Chrome</h3>
+  <p>Install it from the Chrome Web Store. It works right away on the Warmshowers map.</p>
+
+  <h2>Using it</h2>
+  <ul>
+    <li>On the Warmshowers <strong>Find a host</strong> map, tap the round route button in the bottom right.</li>
+    <li>Copy a RideWithGPS, Komoot or Strava route link and tap <strong>Paste &amp; add</strong>, or load a GPX file.</li>
+    <li>Tap a host on the map: its card shows how far it is from your route and at which mile.</li>
+    <li>The toolbar popup (Safari: the <strong>AA</strong> or puzzle-piece menu) switches miles/kilometers and distance markers.</li>
+  </ul>
+  <p>No Warmshowers membership? Try it on the <a href="demo/">demo map</a> with sample hosts.</p>
+
+  <h2>Troubleshooting</h2>
+  <h3>The route button doesn't appear</h3>
+  <p>It only shows on the Find a host map. Check that the extension is turned on and allowed on warmshowers.org (see Getting started), then reload the page.</p>
+  <h3>"Looking for the map..." stays on</h3>
+  <p>Pan or zoom the map once.</p>
+  <h3>A route link won't load</h3>
+  <ul>
+    <li>Make sure the extension is allowed on that route's website.</li>
+    <li>Private RideWithGPS or Komoot routes need their share link (the one with <code>privacy_code</code> or <code>share_token</code>).</li>
+    <li>Strava only lets signed-in users download routes. Sign in to strava.com in the same browser once.</li>
+    <li>If a direct download fails, the extension opens the route page, imports it from there, and brings you back. Let it finish.</li>
+  </ul>
+  <h3>My routes disappeared</h3>
+  <p>Routes are saved in the browser they were added in and aren't synced between devices or browsers.</p>
+
+  <h2>Privacy</h2>
+  <p>Your routes stay on your device. No account, no tracking, no server. <a href="privacy.html">Privacy policy</a></p>
+
+  <p class="muted">Route My Showers is an independent project and is not affiliated with Warmshowers, RideWithGPS, Komoot or Strava.</p>
+</main>
+</body>
+</html>
