@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Route My Showers",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "Overlay RideWithGPS, Komoot, Strava and GPX routes (with mile markers) on the Warmshowers host map.",
   "permissions": [
     "storage",
