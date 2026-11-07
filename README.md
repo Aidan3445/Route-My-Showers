@@ -53,4 +53,8 @@ If you add a file to `extension/`, add it to the Safari extension targets in Xco
 - `source.js` runs on RideWithGPS, Komoot and Strava pages for the on-page import.
 - `popup.html`/`popup.js` is the toolbar popup.
 
+## Demo and privacy pages
+`docs/` is served by GitHub Pages: `docs/demo/` is a public stand-in for the host map with sample hosts (for store reviewers and anyone without a membership), and `docs/privacy.html` is the privacy policy.
+The demo needs a Google Maps JavaScript API key in `MAPS_KEY` at the bottom of `docs/demo/index.html`, restricted to `https://aidan3445.github.io/*`.
+
 If the dot in the panel header stays amber ("Looking for the map…"), pan or zoom the map once.

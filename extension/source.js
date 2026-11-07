@@ -5,7 +5,12 @@
 
   const DEFAULT_RETURN = "https://app.warmshowers.org/find-host";
   const safeReturn = (u) => {
-    try { return /(^|\.)warmshowers\.(org|com)$/.test(new URL(u).hostname) ? u : DEFAULT_RETURN; }
+    try {
+      const url = new URL(u);
+      const ok = /(^|\.)warmshowers\.(org|com)$/.test(url.hostname) ||
+        (url.origin === "https://aidan3445.github.io" && url.pathname.startsWith("/Route-My-Showers/demo/"));
+      return ok ? u : DEFAULT_RETURN;
+    }
     catch (_) { return DEFAULT_RETURN; }
   };
 

@@ -41,7 +41,8 @@
         "https://warmshowers.org/*",
         "https://*.warmshowers.org/*",
         "https://warmshowers.com/*",
-        "https://*.warmshowers.com/*"
+        "https://*.warmshowers.com/*",
+        "https://aidan3445.github.io/Route-My-Showers/demo/*"
       ],
       "js": [
         "loader.js"
@@ -53,7 +54,8 @@
         "https://warmshowers.org/*",
         "https://*.warmshowers.org/*",
         "https://warmshowers.com/*",
-        "https://*.warmshowers.com/*"
+        "https://*.warmshowers.com/*",
+        "https://aidan3445.github.io/Route-My-Showers/demo/*"
       ],
       "js": [
         "haversine.js",
@@ -87,7 +89,8 @@
         "https://warmshowers.org/*",
         "https://*.warmshowers.org/*",
         "https://warmshowers.com/*",
-        "https://*.warmshowers.com/*"
+        "https://*.warmshowers.com/*",
+        "https://aidan3445.github.io/*"
       ]
     }
   ]

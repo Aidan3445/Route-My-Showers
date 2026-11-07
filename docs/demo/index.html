@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Route My Showers Demo</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font: 14px/1.45 system-ui, -apple-system, sans-serif; color: #1f2937; background: #f3f4f6; }
+  body { display: flex; flex-direction: column; }
+  header { padding: 10px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; }
+  header h1 { margin: 0; font-size: 16px; }
+  header p { margin: 4px 0 0; color: #4b5563; font-size: 13px; }
+  header a { color: #0e6b6b; }
+  main { position: relative; flex: 1; min-height: 0; }
+  #map { position: absolute; inset: 0; }
+  .card { position: absolute; top: 12px; left: 12px; width: min(360px, calc(100% - 24px)); background: #fff;
+          border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.18); padding: 14px 16px; }
+  .card[hidden] { display: none; }
+  .close { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; border: 0; border-radius: 50%;
+           background: transparent; font-size: 20px; line-height: 1; cursor: pointer; color: #6b7280; }
+  .close:hover { background: #f3f4f6; }
+  .row { display: flex; gap: 12px; align-items: center; padding-right: 24px; }
+  .avatar { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+            color: #fff; font-weight: 700; font-size: 18px; }
+  .info { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .info h2 { margin: 0; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .info h2 a { color: inherit; text-decoration: none; }
+  .info p { margin: 0; color: #6b7280; font-size: 13px; }
+  .about { margin: 12px 0 0; color: #374151; font-size: 13px; }
+  .hint { position: absolute; left: 12px; bottom: 24px; max-width: calc(100% - 120px); background: rgba(255,255,255,.95);
+          border-radius: 8px; padding: 8px 12px; font-size: 13px; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Route My Showers demo map</h1>
+  <p>
+    A stand-in for the Warmshowers host map, which requires a paid membership. The hosts below are made up.
+    With the extension installed, add a route with the round button in the bottom right, then tap a host to see its distance from the route.
+    Sample route: <a href="sample-route.gpx" download>sample-route.gpx</a> (San Francisco to Santa Cruz).
+    <a href="../privacy.html">Privacy</a>
+  </p>
+</header>
+<main>
+  <div id="map"></div>
+  <div class="hint" id="hint">Tap a host marker to open its card.</div>
+
+  <!-- Same skeleton as the Warmshowers host card: the extension adds its badge after the first <p> in the header. -->
+  <div class="card" id="card" hidden>
+    <button class="close" id="close" aria-label="Close host details">&times;</button>
+    <div class="@container/card-header">
+      <div class="row">
+        <div class="avatar" id="avatar"></div>
+        <div class="info">
+          <h2><a id="name" href="#"></a></h2>
+          <p id="responds"></p>
+        </div>
+      </div>
+    </div>
+    <p class="about" id="about"></p>
+  </div>
+</main>
+
+<script>
+  // Google Maps JavaScript API key. Restrict it to https://aidan3445.github.io/* in Google Cloud Console.
+  const MAPS_KEY = "AIzaSyDy6OYTCMXN0lxgIrttJMeQZWsnDQ7TqPk";
+
+  const HOSTS = [
+    { id: "d1", name: "Dana S.", city: "Daly City", pos: [37.6879, -122.4702], responds: "a few hours", about: "Garage space for bikes, couch and a hot shower." },
+    { id: "d2", name: "Sam R.", city: "Pacifica", pos: [37.6200, -122.4820], responds: "about a day", about: "Two blocks from the coast route. Tent space in the yard." },
+    { id: "d3", name: "Lee and Morgan", city: "Montara", pos: [37.5450, -122.5100], responds: "about a day", about: "Spare room, laundry, and a pump with every valve type." },
+    { id: "d4", name: "Priya K.", city: "Half Moon Bay", pos: [37.4700, -122.4400], responds: "a few hours", about: "Bed in a private room. Grocery store nearby." },
+    { id: "d5", name: "Jamie L.", city: "Redwood City", pos: [37.4852, -122.2364], responds: "a couple of days", about: "Over the hill from the coast, close to the train." },
+    { id: "d6", name: "Jordan T.", city: "La Honda", pos: [37.3190, -122.2740], responds: "about a day", about: "Quiet spot in the redwoods. Steep climb to get here." },
+    { id: "d7", name: "Casey M.", city: "Pescadero", pos: [37.2550, -122.3830], responds: "about a day", about: "Farmhouse with tent space and a bike stand." },
+    { id: "d8", name: "Alex P.", city: "Davenport", pos: [37.0150, -122.1960], responds: "a few hours", about: "Small cabin, ocean view, shared kitchen." },
+    { id: "d9", name: "Taylor B.", city: "Scotts Valley", pos: [37.0510, -122.0147], responds: "a couple of days", about: "Floor space and a shower. Dog in the house." },
+    { id: "d10", name: "Riley W.", city: "Santa Cruz", pos: [36.9800, -122.0300], responds: "a few hours", about: "Near the boardwalk. Bike shop around the corner." },
+  ];
+  const COLORS = ["#0e6b6b", "#7c3aed", "#b45309", "#be185d", "#1d4ed8"];
+
+  const $ = (id) => document.getElementById(id);
+  function showHost(h, i) {
+    $("avatar").textContent = h.name[0];
+    $("avatar").style.background = COLORS[i % COLORS.length];
+    $("name").textContent = `${h.name} • ${h.city}`;
+    $("name").setAttribute("href", `#/profiles/${h.id}`);
+    $("responds").textContent = `Typically responds in ${h.responds}`;
+    $("about").textContent = h.about;
+    $("card").hidden = false;
+    $("hint").hidden = true;
+  }
+  $("close").onclick = () => { $("card").hidden = true; };
+  $("name").onclick = (e) => e.preventDefault();
+
+  window.initMap = () => {
+    const map = new google.maps.Map($("map"), {
+      center: { lat: 37.37, lng: -122.3 }, zoom: 9,
+      streetViewControl: false, mapTypeControl: false, fullscreenControl: false,
+      clickableIcons: false,
+    });
+    // Like a real host map, load hosts once the map has settled, and read the viewport whenever it moves.
+    google.maps.event.addListenerOnce(map, "idle", () => setTimeout(() => {
+      map.getBounds(); // a real host map would fetch the hosts inside these bounds
+      HOSTS.forEach((h, i) => {
+        const m = new google.maps.Marker({ position: { lat: h.pos[0], lng: h.pos[1] }, map, title: `${h.name}, ${h.city}` });
+        m.addListener("click", () => showHost(h, i));
+        markers.push(m);
+      });
+    }, 500));
+    map.addListener("idle", () => map.getBounds());
+  };
+  const markers = [];
+
+  const s = document.createElement("script");
+  s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(MAPS_KEY)}&callback=initMap&loading=async`;
+  s.async = true;
+  document.head.appendChild(s);
+</script>
+</body>
+</html>
