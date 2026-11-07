@@ -153,12 +153,15 @@
   }
 
   // Reasonable marker spacing
-  function autoInterval() {
+  function metersPerPx() {
     const z = map.getZoom() ?? 10;
     const c = map.getCenter();
     const lat = c ? c.lat() : 40;
-    const metersPerPx = (156543.03392 * Math.cos((lat * Math.PI) / 180)) / 2 ** z;
-    const target = (metersPerPx * 70) / unitMeters();
+    return (156543.03392 * Math.cos((lat * Math.PI) / 180)) / 2 ** z;
+  }
+
+  function autoInterval() {
+    const target = (metersPerPx() * 70) / unitMeters();
     return [1, 2, 5, 10, 20, 25, 50, 100, 200, 500, 1000].find((s) => s >= target) || 1000;
   }
 
@@ -182,23 +185,49 @@
     });
   }
 
+  // Start and finish circles overlap closer than about 24px, so show one split circle instead
+  const MERGE_PX = 24;
+  const START_FINISH_SVG = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">' +
+    '<path d="M14 2a12 12 0 0 0 0 24z" fill="#2e7d32"/><path d="M14 2a12 12 0 0 1 0 24z" fill="#c62828"/>' +
+    '<circle cx="14" cy="14" r="12" fill="none" stroke="#ffffff" stroke-width="2.5"/></svg>');
+  const startFinishIcon = () => ({
+    url: START_FINISH_SVG,
+    size: new google.maps.Size(28, 28),
+    scaledSize: new google.maps.Size(28, 28),
+    anchor: new google.maps.Point(14, 14),
+    labelOrigin: new google.maps.Point(14, 14),
+  });
+  const toPos = (p) => ({ lat: p[0], lng: p[1] });
+
   function updateMarkers(force) {
     if (!map || !google.maps.Marker) return;
     const iv = state.interval === "off" ? 0
       : state.interval === "auto" ? autoInterval() : Number(state.interval);
     const unit = state.units;
+    const mpp = metersPerPx();
     for (const d of drawn) {
-      if (!force && d.interval === iv) continue;
+      const pts = d.route.points;
+      if (!pts.length) continue;
+      const merged = haversine(pts[0], pts[pts.length - 1]) < mpp * MERGE_PX;
+      if (!force && d.interval === iv && d.merged === merged) continue;
       d.markers.forEach((m) => m.setMap(null));
       d.markers = [];
       d.interval = iv;
-      const pts = d.route.points, cum = d.cum, total = cum[cum.length - 1];
-      if (!pts.length) continue;
-      const toPos = (p) => ({ lat: p[0], lng: p[1] });
+      d.merged = merged;
+      const cum = d.cum, total = cum[cum.length - 1];
       const totalTxt = (total / unitMeters()).toFixed(1);
-      d.markers.push(makeMarker(toPos(pts[0]), d.route.color, "S", `${d.route.name} — start`, "#2e7d32"));
-      d.markers.push(makeMarker(toPos(pts[pts.length - 1]), d.route.color, "F",
-        `${d.route.name} — finish (${totalTxt} ${unit})`, "#c62828"));
+      if (merged) {
+        d.markers.push(new google.maps.Marker({
+          position: toPos(pts[0]), map, clickable: true, zIndex: 1003, icon: startFinishIcon(),
+          title: `${d.route.name} — start and finish (${totalTxt} ${unit})`,
+          label: { text: "S/F", color: "#ffffff", fontSize: "9px", fontWeight: "700" },
+        }));
+      } else {
+        d.markers.push(makeMarker(toPos(pts[0]), d.route.color, "S", `${d.route.name} — start`, "#2e7d32"));
+        d.markers.push(makeMarker(toPos(pts[pts.length - 1]), d.route.color, "F",
+          `${d.route.name} — finish (${totalTxt} ${unit})`, "#c62828"));
+      }
       if (!iv) continue;
       const step = iv * unitMeters();
       let i = 1;
