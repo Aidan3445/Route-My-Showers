@@ -249,24 +249,43 @@
     return `${v < 0.1 ? v.toFixed(2) : v < 10 ? v.toFixed(1) : Math.round(v)} ${state.units}`;
   };
 
-  let badgeInfo = null; // { html, title, color, tapAt, boundTo }
-  function onHostTap(keep = false) {
-    if (!lastTap || !state.routes.length) { badgeInfo = null; return syncBadge(); }
-    const n = nearest(lastTap);
-    if (!n) return;
+  // Update on new host
+  let badgeInfo = null; // { tap, text, sub, color, boundTo }
+  let pending = null; // { tap, at, staleKey }
+  function cardKey() {
+    const p = document.querySelector(CARD_TEXT);
+    if (!p) return null;
+    const head = p.closest('div[class~="@container/card-header"]') || p.parentElement;
+    const link = head.querySelector('a[href*="/profiles/"]');
+    if (link) return link.getAttribute("href");
+    let t = head.textContent;
+    head.querySelectorAll("[data-rms-distance]").forEach((b) => { t = t.replace(b.textContent, ""); });
+    return t.trim();
+  }
+
+  function describe(tap) {
+    const n = state.routes.length && nearest(tap);
+    if (!n) return null;
     const many = state.routes.length > 1;
-    const prev = badgeInfo;
-    const shown = document.querySelector(CARD_TEXT);
-    badgeInfo = {
-      text: `${lastTap.exact ? "" : "~ "}${fmt(n.d)} from route`,
+    return {
+      tap,
+      text: `${tap.exact ? "" : "~ "}${fmt(n.d)} from route`,
       sub: `${many ? n.route.name + " · " : ""}at ${state.units === "km" ? "km" : "mile"} ${Math.round(n.along / unitMeters())}`,
       color: n.route.color,
-      tapAt: keep && prev ? prev.tapAt : Date.now(),
-      boundTo: keep && prev ? prev.boundTo : null,
-      staleKey: keep && prev ? prev.staleKey : shown ? shown.textContent.trim() : null,
     };
-    // Same host tapped again
-    if (!keep) [300, 1300].forEach((ms) => setTimeout(syncBadge, ms));
+  }
+
+  function onHostTap() {
+    const now = Date.now();
+    const staleKey = pending && now - pending.at < 1000 ? pending.staleKey : cardKey();
+    pending = { tap: lastTap, at: now, staleKey };
+    syncBadge();
+  }
+
+  function refreshBadge() {
+    if (!badgeInfo) return;
+    const next = describe(badgeInfo.tap);
+    badgeInfo = next ? { ...next, boundTo: badgeInfo.boundTo } : null;
     syncBadge();
   }
 
@@ -291,18 +310,17 @@
 
   function syncBadge() {
     const p = document.querySelector(CARD_TEXT);
-    const existing = document.querySelectorAll("[data-rms-distance]");
-    if (!p || !badgeInfo) { existing.forEach((e) => e.remove()); return; }
-    const key = p.textContent.trim();
-    if (!badgeInfo.boundTo) {
-      const age = Date.now() - badgeInfo.tapAt;
-      if (age > 4000) { existing.forEach((e) => e.remove()); return; }
-      if (key === badgeInfo.staleKey && age < 1200) { existing.forEach((e) => e.remove()); return; }
-      badgeInfo.boundTo = key;
-    } else if (badgeInfo.boundTo !== key) {
-      existing.forEach((e) => e.remove());
-      return;
+    const key = cardKey();
+    if (pending) {
+      if (Date.now() - pending.at > 4000) pending = null;
+      else if (key && key !== pending.staleKey) {
+        const next = describe(pending.tap);
+        badgeInfo = next ? { ...next, boundTo: key } : null;
+        pending = null;
+      }
     }
+    const existing = document.querySelectorAll("[data-rms-distance]");
+    if (!p || !badgeInfo || badgeInfo.boundTo !== key) { existing.forEach((e) => e.remove()); return; }
     const next = p.nextElementSibling;
     if (next && next.hasAttribute("data-rms-distance") && next.dataset.v === badgeInfo.text + badgeInfo.sub) return;
     existing.forEach((e) => e.remove());
@@ -313,7 +331,7 @@
 
   let syncQueued = false;
   new MutationObserver(() => {
-    if (syncQueued || !badgeInfo) return;
+    if (syncQueued || !(badgeInfo || pending)) return;
     syncQueued = true;
     requestAnimationFrame(() => { syncQueued = false; syncBadge(); });
   }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
@@ -324,7 +342,7 @@
     if (msg.type === "state") {
       state = msg.state;
       redraw();
-      if (badgeInfo) onHostTap(true);
+      refreshBadge();
     } else if (msg.type === "fit") {
       fit();
     } else if (msg.type === "ping") {

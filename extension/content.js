@@ -66,7 +66,8 @@
       .fab { width: 52px; height: 52px; border-radius: 50%; border: none; background: ${TEAL}; color: #fff;
              display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative;
              box-shadow: 0 6px 18px rgba(14,107,107,.4); -webkit-tap-highlight-color: transparent; padding: 0;
-             transition: transform .15s; }
+             transition: transform .15s, filter .15s; }
+      @media (hover: hover) { .fab:hover { filter: brightness(1.18); } }
       .fab:active { transform: scale(.92); }
       .fab .count { position: absolute; top: -3px; right: -3px; min-width: 20px; height: 20px; padding: 0 5px;
                     border-radius: 10px; background: #f59e0b; color: #fff; font-size: 11px; font-weight: 700;
@@ -370,9 +371,19 @@
 
   setInterval(() => { if (!document.hidden) reread(); }, 2000);
 
+  // Only on the Find a host map
+  const onFindHost = () => /^find a host\b/i.test(document.title.trim());
+  function mount() {
+    const on = onFindHost();
+    if (on && !host.isConnected) document.documentElement.appendChild(host);
+    else if (!on && host.isConnected) { resetAdd(); host.remove(); }
+  }
+  new MutationObserver(mount).observe(document.head || document.documentElement, { childList: true, subtree: true, characterData: true });
+  setInterval(mount, 1000);
+
   (async () => {
     await load();
-    document.documentElement.appendChild(host);
+    mount();
     render();
     pushToPage();
     window.postMessage({ source: "rms-content", type: "ping" }, "*");
