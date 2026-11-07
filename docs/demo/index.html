@@ -13,6 +13,8 @@
   header h1 { margin: 0; font-size: 16px; }
   header p { margin: 4px 0 0; color: #4b5563; font-size: 13px; }
   header a { color: #0e6b6b; }
+  .copy { font: inherit; font-size: 12px; padding: 1px 8px; border: 1px solid #0e6b6b; border-radius: 999px;
+          background: #fff; color: #0e6b6b; cursor: pointer; }
   main { position: relative; flex: 1; min-height: 0; }
   #map { position: absolute; inset: 0; }
   .card { position: absolute; top: 12px; left: 12px; width: min(360px, calc(100% - 24px)); background: #fff;
@@ -39,7 +41,10 @@
   <p>
     A stand-in for the Warmshowers host map, which requires a paid membership. The hosts below are made up.
     With the extension installed, add a route with the round button in the bottom right, then tap a host to see its distance from the route.
-    Sample route: <a href="sample-route.gpx" download>sample-route.gpx</a> (San Francisco to Santa Cruz).
+    Sample route, San Francisco to Santa Cruz:
+    <a id="sample-link" href="https://www.komoot.com/tour/63527101" target="_blank" rel="noopener">Komoot link</a>
+    <button type="button" class="copy" id="copy-link">Copy link</button>
+    or <a href="sample-route.gpx" download>GPX file</a>.
     <a href="../privacy.html">Privacy</a>
   </p>
 </header>
@@ -93,6 +98,11 @@
     $("hint").hidden = true;
   }
   $("close").onclick = () => { $("card").hidden = true; };
+  $("copy-link").onclick = async () => {
+    try { await navigator.clipboard.writeText($("sample-link").href); $("copy-link").textContent = "Copied"; }
+    catch (_) { $("copy-link").textContent = "Copy failed, long-press the link"; }
+    setTimeout(() => { $("copy-link").textContent = "Copy link"; }, 2000);
+  };
   $("name").onclick = (e) => e.preventDefault();
 
   window.initMap = () => {

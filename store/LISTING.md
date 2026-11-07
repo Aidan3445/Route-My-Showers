@@ -71,8 +71,9 @@ Please use the public demo map instead. It runs the same extension code on a Goo
 https://aidan3445.github.io/Route-My-Showers/demo/
 
 1. Open the demo page. A round route button appears in the bottom right of the map.
-2. Tap it, then "Load a GPX file" and pick sample-route.gpx (download link at the top of the demo page).
-   Or copy any public RideWithGPS / Komoot / Strava route link and tap "Paste & add".
+2. Tap "Copy link" at the top of the demo page (or copy https://www.komoot.com/tour/63527101, a public Komoot route, no login needed),
+   then tap the round button and "Paste & add".
+   Alternatively, tap "Load a GPX file" and pick sample-route.gpx (download link at the top of the demo page).
 3. The route appears with start/finish and distance markers. Tap a host marker: its card shows e.g. "7.1 mi from route · at mile 33".
 4. The toolbar popup switches mi/km, marker spacing, and hides/shows routes.
 5. On any public RideWithGPS or Komoot route page, an "Add to Warmshowers map" button appears.
