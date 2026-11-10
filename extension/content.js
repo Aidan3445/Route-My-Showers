@@ -35,12 +35,9 @@
     fitMap();
   }
 
-  const TEAL = "#0e6b6b";
   const host = document.createElement("div");
   host.style.cssText = "position:fixed;z-index:2147483000;right:84px;bottom:24px;";
   const root = host.attachShadow({ mode: "open" });
-  const ROUTE_ICON = `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/></svg>`;
-  const FIT_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>`;
   root.innerHTML = `
     <style>
       :host { all: initial; }
@@ -63,7 +60,7 @@
       @media (prefers-reduced-motion: reduce) { .toast { animation: fadeOnly 2.2s ease-out forwards; } }
       @keyframes fadeOnly { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
 
-      .fab { width: 52px; height: 52px; border-radius: 50%; border: none; background: ${TEAL}; color: #fff;
+      .fab { width: 52px; height: 52px; border-radius: 50%; border: none; background: #0e6b6b; color: #fff;
              display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative;
              box-shadow: 0 6px 18px rgba(14,107,107,.4); -webkit-tap-highlight-color: transparent; padding: 0;
              transition: transform .15s, filter .15s; }
@@ -107,22 +104,22 @@
       .add { display: flex; gap: 6px; }
       input[type=text] { flex: 1; min-width: 0; padding: 10px 12px; border: 1.5px solid #d6e4e2; border-radius: 12px;
                          background: #fff; color: #1f2937; outline: none; }
-      input[type=text]:focus { border-color: ${TEAL}; box-shadow: 0 0 0 3px rgba(14,107,107,.15); }
+      input[type=text]:focus { border-color: #0e6b6b; box-shadow: 0 0 0 3px rgba(14,107,107,.15); }
       input[type=text]::placeholder { color: #94a3b8; }
       .btn { border: none; border-radius: 12px; padding: 10px 14px; font-weight: 600; cursor: pointer;
              -webkit-tap-highlight-color: transparent; text-decoration: none; display: inline-flex;
              align-items: center; justify-content: center; gap: 6px; }
       .btn:active { transform: scale(.97); }
-      .btn.primary { background: ${TEAL}; color: #fff; }
+      .btn.primary { background: #0e6b6b; color: #fff; }
       .btn.primary:disabled { opacity: .6; }
       .addbtn { white-space: nowrap; flex: none; }
       .add.paste .addbtn { flex: 1; padding: 12px 14px; font-size: 15px; }
-      .btn.soft { background: #e6f2f0; color: ${TEAL}; }
+      .btn.soft { background: #e6f2f0; color: #0e6b6b; }
       .file-btn { width: 100%; }
 
       .msg { font-size: 13px; color: #b91c1c; background: #fef2f2; border-radius: 10px; padding: 8px 10px;
              display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
-      .msg.ok { color: ${TEAL}; background: #e6f2f0; }
+      .msg.ok { color: #0e6b6b; background: #e6f2f0; }
       .msg:empty { display: none; }
 
       .foot { display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -135,7 +132,7 @@
                transition: background .2s; flex: none; }
       .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; border-radius: 50%;
                       background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,.25); transition: transform .2s; }
-      .switch input:checked + .track { background: ${TEAL}; }
+      .switch input:checked + .track { background: #0e6b6b; }
       .switch input:checked + .track::after { transform: translateX(18px); }
       .switch input:focus-visible + .track { box-shadow: 0 0 0 3px rgba(14,107,107,.3); }
 
@@ -153,7 +150,7 @@
         </div>
         <div class="body">
           <div class="empty">
-            <div class="big">${ROUTE_ICON}</div>
+            <div class="big"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/></svg></div>
             <b>No routes yet</b>
             Paste a RideWithGPS, Komoot or Strava link, or load a GPX, to see your route next to hosts.
           </div>
@@ -167,11 +164,11 @@
           <input type="file" class="file" multiple hidden>
           <div class="foot">
             <label class="switch"><input type="checkbox" class="vis"><span class="track"></span><span>Show on map</span></label>
-            <button class="btn soft fit">${FIT_ICON} Fit</button>
+            <button class="btn soft fit"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg> Fit</button>
           </div>
         </div>
       </div>
-      <button class="fab" title="Your routes" aria-label="Your routes">${ROUTE_ICON}<span class="count" hidden></span></button>
+      <button class="fab" title="Your routes" aria-label="Your routes"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/></svg><span class="count" hidden></span></button>
     </div>`;
 
   const place = () => {
@@ -256,8 +253,6 @@
       setManual(false);
       toast("Added to your map");
     } catch (err) {
-      // A recognised link the extension couldn't download itself (on iOS its background has
-      // none of Safari's logins): import it from the route's own page instead, then come back.
       if (err.info) viaPage(err.info);
       else { setManual(true, raw); showMsg(err.message); }
     } finally {

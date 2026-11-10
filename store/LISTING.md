@@ -92,8 +92,8 @@ Free, Public (or Unlisted to share by link only), all regions.
 Free: sign in at https://addons.mozilla.org/developers/ with a Mozilla account.
 
 1. Run `./store/build.sh` and upload the same `dist/route-my-showers-<version>.zip`. Optional pre-check: `npx web-ext lint --source-dir extension`.
-   Two lint warnings are expected: `background.service_worker` (that key is for Chrome; Firefox uses `background.scripts`),
-   and `innerHTML` in content.js (the templates only interpolate constant icons and colors; route names go in with `textContent`).
+   One lint warning is expected: `background.service_worker` is unsupported. That key is for Chrome; Firefox uses `background.scripts`, which is also set.
+   Keep `innerHTML` templates as plain literals with no `${...}`, or AMO flags them as unsafe.
 2. **Where:** "On this site" (listed). **Platforms:** tick both **Firefox** and **Firefox for Android**.
 3. **Source code:** No. The code isn't minified, bundled or generated.
 4. **Listing:** reuse the name, summary, description and screenshots above. Category: Travel (Android: pick its closest match).
