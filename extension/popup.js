@@ -13,6 +13,19 @@
     } catch (_) { /* not a Warmshowers tab */ }
   };
 
+  // Firefox lets users withhold host permissions
+  if (typeof browser !== "undefined" && browser.runtime.getBrowserInfo) {
+    const m = chrome.runtime.getManifest();
+    const origins = [...new Set([...(m.host_permissions || []), ...m.content_scripts.flatMap((c) => c.matches)])];
+    const missing = !(await chrome.permissions.contains({ origins }));
+    if (missing) {
+      $("access").style.display = "block";
+      $("grant").onclick = () => chrome.permissions.request({ origins }).then((ok) => {
+        if (ok) $("access").style.display = "none";
+      });
+    }
+  }
+
   const rms = await get();
   const n = (rms.routes || []).length;
   $("count").textContent = n ? `${n} route${n === 1 ? "" : "s"} on your map` : "No routes yet";

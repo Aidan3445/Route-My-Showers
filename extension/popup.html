@@ -43,6 +43,10 @@
            background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
            background-position: right 13px center, right 8px center; background-size: 5px 5px; background-repeat: no-repeat; }
   p { color: var(--muted); font-size: 12px; text-align: center; }
+  #access { display: none; text-align: center; padding: 12px 14px; }
+  #access div { font-size: 13px; margin-bottom: 10px; }
+  #access button { border: none; border-radius: 9px; background: var(--teal); color: #fff; font-weight: 600;
+                   padding: 9px 16px; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -50,6 +54,11 @@
     <img src="icons/icon128.png" alt="">
     <div><b>Route My Showers</b><small id="count"></small></div>
   </header>
+
+  <div class="card" id="access">
+    <div>Route My Showers needs access to Warmshowers and the route sites to work.</div>
+    <button id="grant">Allow site access</button>
+  </div>
 
   <div class="card">
     <div class="row">Route button on map

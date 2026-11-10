@@ -2,11 +2,19 @@
 
 Browser extension that draws your bike routes, with distance markers, on the Warmshowers "Find a Host" map.
 Routes come from **RideWithGPS**, **Komoot**, **Strava** links, or local **GPX** files.
-Works in Chrome and Safari (Mac + iPhone/iPad).
+Works in Chrome, Firefox (desktop + Android) and Safari (Mac + iPhone/iPad).
 
 ## Install — Chrome
 1. Open `chrome://extensions` and turn on **Developer mode**.
 2. Click **Load unpacked** and pick the `extension/` folder.
+
+## Install — Firefox (desktop and Android)
+- **Desktop, for development:** open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on…** and pick `extension/manifest.json`. It stays until Firefox restarts.
+  Or run `npx web-ext run --source-dir extension` to open a fresh Firefox profile with it loaded, reloading on every edit.
+- **Android:** Firefox for Android only installs add-ons listed on addons.mozilla.org. For testing before that, connect a phone with USB debugging on
+  (and Firefox's Settings → Remote debugging via USB) and run `npx web-ext run -t firefox-android --source-dir extension`.
+- **Website access:** Firefox can hold back site access. If the toolbar popup shows **Allow site access**, tap it (on Android the popup is under the
+  ⋮ menu → Extensions → Route My Showers). Or grant it under Add-ons → Route My Showers → Permissions.
 
 ## Install — Safari (Mac and iPhone)
 The Safari version is the same code wrapped in a small app, in [`safari/`](safari/). You need Xcode.

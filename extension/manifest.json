@@ -3,6 +3,20 @@
   "name": "Route My Showers",
   "version": "1.0.0",
   "description": "Overlay RideWithGPS, Komoot, Strava and GPX routes (with mile markers) on the Warmshowers host map.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "route-my-showers@aidan3445.github.io",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
   "permissions": [
     "storage",
     "unlimitedStorage"
@@ -16,7 +30,10 @@
     "https://strava.app.link/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": [
+      "background.js"
+    ]
   },
   "action": {
     "default_title": "Route My Showers",

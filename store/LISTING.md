@@ -86,3 +86,19 @@ No account is needed for any of these steps.
 
 ## 4. Distribution tab
 Free, Public (or Unlisted to share by link only), all regions.
+
+# Firefox Add-ons (AMO) submission
+
+Free: sign in at https://addons.mozilla.org/developers/ with a Mozilla account.
+
+1. Run `./store/build.sh` and upload the same `dist/route-my-showers-<version>.zip`. Optional pre-check: `npx web-ext lint --source-dir extension`.
+   Two lint warnings are expected: `background.service_worker` (that key is for Chrome; Firefox uses `background.scripts`),
+   and `innerHTML` in content.js (the templates only interpolate constant icons and colors; route names go in with `textContent`).
+2. **Where:** "On this site" (listed). **Platforms:** tick both **Firefox** and **Firefox for Android**.
+3. **Source code:** No. The code isn't minified, bundled or generated.
+4. **Listing:** reuse the name, summary, description and screenshots above. Category: Travel (Android: pick its closest match).
+   **Support site** and **Privacy policy:** same URLs as above. License: your choice (e.g. MIT, or All Rights Reserved).
+5. **Data collection:** the manifest declares `data_collection_permissions: none`. Routes stay in browser storage and nothing is sent to the developer.
+6. **Notes to reviewer:** paste the reviewer test instructions above, plus:
+   "If the popup shows Allow site access, grant it first; Firefox treats MV3 host permissions as optional."
+7. The add-on ID is `route-my-showers@aidan3445.github.io` (in the manifest). Don't change it after the first upload, or AMO treats it as a new add-on.

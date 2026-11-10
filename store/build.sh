@@ -1,5 +1,5 @@
 #!/bin/sh
-# Packages extension/ into dist/route-my-showers-<version>.zip for the Chrome Web Store.
+# Packages extension/ into dist/route-my-showers-<version>.zip. The same zip goes to the Chrome Web Store and Firefox Add-ons (AMO).
 set -e
 cd "$(dirname "$0")/.."
 VERSION=$(sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' extension/manifest.json)
