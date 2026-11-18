@@ -16,7 +16,8 @@ import SafariServices
 typealias PlatformViewController = NSViewController
 #endif
 
-let extensionBundleIdentifier = "com.aidanweinberg.RouteMyShowers.Extension"
+// Derived from the app's own bundle ID so it can't drift from the project settings.
+let extensionBundleIdentifier = (Bundle.main.bundleIdentifier ?? "com.aidan3445.RouteMyShower") + ".Extension"
 
 class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMessageHandler {
 
@@ -66,11 +67,19 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
         }
 
         SFSafariApplication.showPreferencesForExtension(withIdentifier: extensionBundleIdentifier) { error in
-            guard error == nil else {
-                return
-            }
-
             DispatchQueue.main.async {
+                if let error = error {
+                    NSLog("showPreferencesForExtension failed: \(error)")
+                    // Never leave the button dead: open Safari so the user can enable it manually.
+                    if let safariURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Safari") {
+                        NSWorkspace.shared.openApplication(at: safariURL, configuration: NSWorkspace.OpenConfiguration())
+                    }
+                    let alert = NSAlert()
+                    alert.messageText = "Couldn't open Safari Settings automatically"
+                    alert.informativeText = "In Safari, choose Safari > Settings, open the Extensions tab, and turn on Route My Showers."
+                    alert.runModal()
+                    return
+                }
                 NSApp.terminate(self)
             }
         }
