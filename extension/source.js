@@ -20,17 +20,34 @@
   root.innerHTML = `
     <style>
       :host { all: initial; }
+      .bar { display: flex; align-items: center; gap: 6px; max-width: calc(100vw - 24px); }
       button { font: 600 15px/1.2 system-ui, -apple-system, sans-serif; color: #fff; background: #0e6b6b;
-               border: none; border-radius: 999px; padding: 12px 18px; cursor: pointer;
-               box-shadow: 0 4px 14px rgba(14,107,107,.35); max-width: calc(100vw - 24px);
-               display: flex; align-items: center; gap: 8px; -webkit-tap-highlight-color: transparent; }
+               border: none; border-radius: 999px; cursor: pointer; box-shadow: 0 4px 14px rgba(14,107,107,.35);
+               -webkit-tap-highlight-color: transparent; }
       button:active { transform: scale(.97); }
-      button.done { background: #2e7d32; }
-      button.err { background: #b91c1c; }
+      .add { padding: 12px 18px; min-width: 0; display: flex; align-items: center; gap: 8px; }
+      .add.done { background: #2e7d32; }
+      .add.err { background: #b91c1c; }
+      .close { flex: none; width: 32px; height: 32px; padding: 0; display: flex; align-items: center;
+               justify-content: center; background: #fff; color: #475569; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+      @media (hover: hover) { .close:hover { background: #f1f5f9; color: #1f2937; } }
     </style>
-    <button>Add to Warmshowers map</button>`;
-  const btn = root.querySelector("button");
-  const setBtn = (text, cls = "") => { btn.textContent = text; btn.className = cls; };
+    <div class="bar">
+      <button class="add">Add to Warmshowers map</button>
+      <button class="close" title="Dismiss" aria-label="Dismiss"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>`;
+  const btn = root.querySelector(".add");
+  const setBtn = (text, cls = "") => { btn.textContent = text; btn.className = `add ${cls}`.trim(); };
+
+  // Dismissed routes stay hidden for this tab (survives reloads, comes back in a new tab)
+  const DISMISS_KEY = "rmsDismissed";
+  const dismissed = new Set();
+  try { JSON.parse(sessionStorage.getItem(DISMISS_KEY) || "[]").forEach((k) => dismissed.add(k)); } catch (_) {}
+  const saveDismissed = () => { try { sessionStorage.setItem(DISMISS_KEY, JSON.stringify([...dismissed])); } catch (_) {} };
+
+  // The RideWithGPS route planner isn't a route page
+  const isPlanner = () =>
+    /(^|\.)ridewithgps\.com$/.test(location.hostname) && /^\/routes\/new(\/|$)/.test(location.pathname);
 
   let info = null;
   let busy = false;
@@ -93,19 +110,29 @@
     }
   }
   btn.onclick = () => importRoute();
+  root.querySelector(".close").onclick = () => {
+    if (info) { dismissed.add(info.key); saveDismissed(); }
+    host.remove();
+  };
 
   // Re-check on in-app navigation
   let lastHref = "";
   async function check() {
     if (location.href === lastHref) return;
     lastHref = location.href;
-    const parsed = RMS.parseLink(location.href);
+    const parsed = isPlanner() ? null : RMS.parseLink(location.href);
     info = parsed && parsed.type !== "short" ? parsed : null;
     if (!info) { host.remove(); return; }
+
+    const fromHash = location.hash.includes("rms-import");
+    // An import started from Warmshowers always shows, even if this route was dismissed before
+    if (dismissed.has(info.key) && !fromHash) {
+      const { rmsPending: p } = await chrome.storage.local.get("rmsPending");
+      if (!(p && p.key === info.key)) { host.remove(); return; }
+    }
     if (!host.isConnected) document.documentElement.appendChild(host);
     setBtn("Add to Warmshowers map");
 
-    const fromHash = location.hash.includes("rms-import");
     let returnTo = "";
     if (fromHash) {
       const m = location.hash.match(/return=([^&]+)/);
